@@ -39,3 +39,8 @@ gen
 /cmake-build-debug/.cmake/api/v1/query/toolchains-v1
 /cmake-build-debug/.cmake/api/v1/reply/toolchains-v1-3ef1266abcde6bf00bc2.json
 !/.gitignore
+/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-52d7db00a75013efbe06.json
+/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-ea1ef3a4b067ea1622c9.json
+/cmake-build-debug/.cmake/api/v1/reply/index-2022-11-09T06-15-06-0098.json
+/cmake-build-debug/.cmake/api/v1/reply/target-CountPrime-Debug-72b068572a437b90e68f.json
+/cmake-build-debug/.cmake/api/v1/reply/target-KillRepeatElement-Debug-c75af598f4dcf1910d83.json
