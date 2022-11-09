@@ -2,7 +2,7 @@
 // Created by Hleonor on 2022-11-09.
 //
 #include <iostream>
-#Include <vector>
+#include <vector>
 using namespace std;
 
 void removeRepeat(vector<int> &nums)
