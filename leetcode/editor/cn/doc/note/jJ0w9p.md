@@ -4,4 +4,6 @@
 * ![image.png](assets/072暴力.png)
 * 二分法：左指针从0开始，右指针从数字本身x开始，当区间中点的平方小于等于x时，应使得左区间更接近x，当区间中点的平方大于x时同理
 * ![image.png](assets/072二分查找.png)
-*
+* 牛顿迭代：
+
+  ![N_UROTXAEBTG6F.jpg](assets/072牛顿迭代.jpg)
