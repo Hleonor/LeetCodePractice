@@ -53,14 +53,24 @@ public:
         {
             return 0;
         }
-        for (long i = 0; i <= (x >> 1) + 1; i++)
+        long low = 0;
+        long high = x;
+        long index = -1;
+        while (low <= high)
         {
-            if (i * i <= x && (i + 1) * (i + 1) > x)
+            long mid = low + (high - low) / 2;
+            if (mid * mid <= x) // 比x小，就要找更接近x的值
             {
-                return (int)i;
+                index = mid;
+                low = mid + 1;
+            }
+            else
+            {
+                high = mid - 1;
             }
         }
-        return -1;
+
+        return index;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
@@ -70,5 +80,4 @@ int main()
 {
     Solution s;
     cout << s.mySqrt(5);
-
 }
