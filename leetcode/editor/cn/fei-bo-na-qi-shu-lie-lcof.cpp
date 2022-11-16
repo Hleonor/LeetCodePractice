@@ -46,6 +46,9 @@ class Solution {
 public:
     int fib(int n)
     {
+        int low = 0;
+        int high = 1;
+        int sum = 1;
         if (n == 0)
         {
             return 0;
@@ -54,13 +57,14 @@ public:
         {
             return 1;
         }
-        if (fibo[n] != 0)
+        for (int i = 2; i <= n; i++)
         {
-            return fibo[n];
+            sum = (high + low) % 1000000007;
+            low = high;
+            high = sum;
         }
-        return fibo[n] = ((fib(n - 1) % 1000000007) + (fib(n - 2) % 1000000007)) % 1000000007;
+        return sum;
     }
-    long fibo[110];
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
