@@ -58,7 +58,7 @@ using namespace std;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target)
+    vector<int> twoSum_binary_search(vector<int>& numbers, int target)
     {
         for (int i = 0; i < numbers.size(); i++)
         {
@@ -79,6 +79,27 @@ public:
                 {
                     high = mid - 1;
                 }
+            }
+        }
+        return {0, 0};
+    }
+
+    vector<int> twoSum(vector<int>& numbers, int target) // 双指针做法
+    {
+        int i = 0, j = numbers.size() - 1;
+        while (i != j)
+        {
+            if (numbers[i] + numbers[j] == target)
+            {
+                return {i , j};
+            }
+            else if (numbers[i] + numbers[j] > target)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
             }
         }
         return {0, 0};
