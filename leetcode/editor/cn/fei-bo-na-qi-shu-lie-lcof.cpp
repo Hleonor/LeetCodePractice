@@ -46,20 +46,21 @@ class Solution {
 public:
     int fib(int n)
     {
+        if (n == 0)
+        {
+            return 0;
+        }
         if (n == 1)
         {
             return 1;
         }
-        else if (n == 0)
+        if (fibo[n] != 0)
         {
-            return 0;
+            return fibo[n];
         }
-        else
-        {
-            return fib(n - 1) + fib(n - 2);
-        }
+        return fibo[n] = ((fib(n - 1) % 1000000007) + (fib(n - 2) % 1000000007)) % 1000000007;
     }
-
+    long fibo[110];
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
