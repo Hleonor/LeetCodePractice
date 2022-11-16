@@ -40,27 +40,26 @@ using namespace std;
 //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
 public:
+    double my_sqrt(double x, long n)
+    {
+        double res = (x + (2 * n - x) / x) / 2;
+        if (res == x)
+        {
+            return x;
+        }
+        else
+        {
+            return my_sqrt(res, n);
+        }
+    }
+
     int arrangeCoins(int n)
     {
-        long low = 0, high = n;
-        while (low <= high)
+        if (n == 0)
         {
-            long mid = (high - low) / 2 + low;
-            long cost = (mid * mid + mid) / 2;
-            if (cost == n)
-            {
-                return mid;
-            }
-            else if (cost > n)
-            {
-                high = mid - 1;
-            }
-            else
-            {
-                low = mid + 1;
-            }
+            return 0;
         }
-        return high;
+        return (int)my_sqrt(n, n);
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
@@ -69,7 +68,6 @@ public:
 int main()
 {
     Solution s;
-    // vector<int> data{7, 1, 5, 3, 6, 4};
     
-    cout<<"Hello LeetCode"<<endl;
+    cout<< s.arrangeCoins(10) << endl;
 }
