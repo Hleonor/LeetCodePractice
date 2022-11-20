@@ -65,36 +65,21 @@ class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n)
     {
-        // 空间换时间做法，
-        vector<int> nums_copy(nums1.begin(), nums1.begin() + m);
-
-        int p1 = 0; // 指向nums_copy
-        int p2 = 0; // 指向nums2
-        int p = 0; // 指向nums1
-        while (p1 < m && p2 < n)
+        // 不用额外空间做法，从后往前遍历
+        int p1 = m - 1;
+        int p2 = n - 1;
+        int p = m + n - 1; // num1的最后一个位置
+        while (p1 >= 0 && p2 >= 0)
         {
-            if (nums_copy[p1] > nums2[p2])
-            {
-                nums1[p++] = nums2[p2];
-                p2++;
-            }
-            else
-            {
-                nums1[p++] = nums_copy[p1];
-                p1++;
-            }
+            nums1[p--] = nums1[p1] < nums2[p2] ? nums2[p2--] : nums1[p1--];
         }
-        while (p1 < m)
+        while (p1 >= 0)
         {
-            nums1[p] = nums_copy[p1];
-            p++;
-            p1++;
+            nums1[p--] = nums1[p1--];
         }
-        while (p2 < n)
+        while (p2 >= 0)
         {
-            nums1[p] = nums2[p2];
-            p++;
-            p2++;
+            nums1[p--] = nums2[p2--];
         }
     }
 };
