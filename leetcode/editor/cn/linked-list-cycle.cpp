@@ -79,16 +79,22 @@ class Solution {
 public:
     bool hasCycle(ListNode *head)
     {
-        set<ListNode *> my_set;
-        while (head)
+        if (head == NULL)
         {
-            if (my_set.insert(head).second == false)
-            {
-                return true;
-            }
-            head = head->next;
+            return false;
         }
-        return false;
+        ListNode* slow = head;
+        ListNode* quick = head->next;
+        while (slow != quick)
+        {
+            if (quick == NULL || quick->next == NULL) // 因为quick一次走两步，所以需要判断quick和quick的next
+            {
+                return false;
+            }
+            slow = slow->next;
+            quick = quick->next->next; // 多走一步，速度更快
+        }
+        return true;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
