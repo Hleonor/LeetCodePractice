@@ -40,14 +40,14 @@ using namespace std;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-/*struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};*/
+//struct TreeNode {
+//    int val;
+//    TreeNode *left;
+//    TreeNode *right;
+//    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
 
 class Solution {
 public:
@@ -57,20 +57,33 @@ public:
         {
             return 0;
         }
-        if (root->left == NULL && root->right == NULL)
+        int dep = 0;
+        // 广度优先做法，找到第一个叶子即为最小深度
+        queue<TreeNode*> que;
+        que.push(root);
+        while (!que.empty())
         {
-            return 1;
+            dep++;
+            int size = que.size();
+            for (int i = 0; i < size; i++)
+            {
+                TreeNode* node = que.front();
+                que.pop();
+                if (node->left)
+                {
+                    que.push(node->left);
+                }
+                if (node->right)
+                {
+                    que.push(node->right);
+                }
+                if (node->left == NULL && node->right == NULL)
+                {
+                    return dep;
+                }
+            }
         }
-        int my_min = INT_MAX;
-        if (root->left)
-        {
-            my_min = my_min < minDepth(root->left) ? my_min : minDepth(root->left);
-        }
-        if (root->right)
-        {
-            my_min = my_min < minDepth(root->right) ? my_min : minDepth(root->right);
-        }
-        return my_min + 1;
+        return dep;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
