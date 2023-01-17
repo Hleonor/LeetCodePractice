@@ -54,41 +54,37 @@ using namespace std;
 class Solution
 {
 public:
-    // 初始化一个visited数组
     vector<bool> visited;
-
-    void dfs(int i, int cities, vector<vector<int>> &isConnected) // 把所有相连的城市都打上标记
-    {
-        for (int j = 0; j < cities; j++)
-        {
-            if (isConnected[i][j] && !visited[j])
-            {
-                visited[j] = 1;
-                dfs(j, cities, isConnected);
-            }
-        }
-    }
-
+    queue<int> my_queue;
     int findCircleNum(vector<vector<int>> &isConnected)
     {
-        int cities = isConnected.size(); // 第一维表示有几个城市
+        int cities = isConnected.size();
         visited.resize(cities);
         int provinces = 0;
-        for (int i = 0; i < cities; i++)
+        for (int i = 0; i < cities; ++i)
         {
-            if (visited[i] == 0) // 没访问过
+            if (!visited[i])
             {
-                // 深度优先
-                dfs(i, cities, isConnected);
+                my_queue.push(i);
+
+                while (!my_queue.empty())
+                {
+                    int k = my_queue.front();
+                    my_queue.pop();
+                    visited[k] = true;
+                    for (int j = 0; j < cities; j++)
+                    {
+                        if (isConnected[k][j] && !visited[j])
+                        {
+                            my_queue.push(j);
+                        }
+                    }
+                }
                 provinces++;
             }
         }
         return provinces;
     }
-
-
-
-
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
