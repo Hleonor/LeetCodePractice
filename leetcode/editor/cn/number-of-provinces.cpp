@@ -54,36 +54,70 @@ using namespace std;
 class Solution
 {
 public:
-    vector<bool> visited;
-    queue<int> my_queue;
+    vector<int> head;
+    vector<int> level;
     int findCircleNum(vector<vector<int>> &isConnected)
     {
         int cities = isConnected.size();
-        visited.resize(cities);
-        int provinces = 0;
-        for (int i = 0; i < cities; ++i)
+        head.resize(cities);
+        level.resize(cities); // 高度
+        for (int i = 0; i < cities; i++)
         {
-            if (!visited[i])
+            head[i] = i;
+            level[i] = 1;
+        }
+        for (int i = 0; i < cities; i++)
+        {
+            for (int j = i + 1; j < cities; j++) // 从i + 1开始就行，因为不用自己和自己比，而且小于i的都已经比过了
             {
-                my_queue.push(i);
-
-                while (!my_queue.empty())
+                if (isConnected[i][j])
                 {
-                    int k = my_queue.front();
-                    my_queue.pop();
-                    visited[k] = true;
-                    for (int j = 0; j < cities; j++)
-                    {
-                        if (isConnected[k][j] && !visited[j])
-                        {
-                            my_queue.push(j);
-                        }
-                    }
+                    merge(i, j);
                 }
+            }
+        }
+        int provinces = 0;
+        for (int i = 0; i < cities; i++)
+        {
+            if (head[i] == i)
+            {
                 provinces++;
             }
         }
         return provinces;
+    }
+
+    void merge(int x, int y) // 修改head向量
+    {
+        int i = find(x);
+        int j = find(y);
+
+        if (i == j)
+        {
+            return;
+        }
+
+        if (level[i] <= level[j]) // 矮的合并到高的
+        {
+            head[i] = j; // i的父亲设置为j
+            if (level[i] == level[j])
+            {
+                level[j]++;
+            }
+        }
+        else
+        {
+            head[j] = i;
+        }
+    }
+
+    int find(int x)
+    {
+        if (head[x] == x)
+        {
+            return x;
+        }
+        return head[x] = find(head[x]); // 压缩
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
