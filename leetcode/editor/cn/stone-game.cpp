@@ -55,7 +55,38 @@ class Solution
 public:
     bool stoneGame(vector<int> &piles)
     {
-        return true; // 因为先手必赢，所以直接返回true就行了
+        // 动态规划的做法
+        int n = piles.size();
+        /**
+         * 注意这种写法不推荐，因为会有内存泄漏的问题，可以使用vector<vector<int>> dp(n, vector<int>(n, 0));
+         * 但是这里为了方便，就直接使用了二维数组，不出错的原因是因为n的值是固定的
+         * 如果直接写int n;
+         * cin >> n;
+         * int dp[n][n];
+         * 这样的话，就会出现内存泄漏的问题
+         * 原因是因为n的值是不确定的，所以在编译的时候，就会出现内存泄漏的问题
+         * 这里传入的向量piles必然有一个固定的长度，所以这里就不会出现内存泄漏的问题
+         */
+        int dp[n][n];
+        for (int i = 0; i < n; i++)
+        {
+            dp[i][i] = piles[i];
+        }
+        for (int i = n - 2; i >= 0; i--)
+        {
+            for (int j = i + 1; j < n; j++)
+            {
+                dp[i][j] = max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
+            }
+        }
+        if (dp[0][n - 1] > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
