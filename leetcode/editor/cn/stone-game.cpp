@@ -76,6 +76,12 @@ public:
         {
             for (int j = i + 1; j < n; j++)
             {
+                /**
+                 * max的内容含义是，我拿了piles[i]或者piles[j]以后，我还比对方多拿多少？
+                 * 所以要减去对方比我多拿的
+                 * 先手如果拿了piles[i]，那么dp[i + 1][j]就表示后手比我多拿多少
+                 * 先手如果拿了piles[j]，那么dp[i][j - 1]就表示后手比我多拿多少
+                 */
                 dp[i][j] = max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1]);
             }
         }
