@@ -47,19 +47,52 @@
 using namespace std;
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution
+{
 public:
-    bool PredictTheWinner(vector<int>& nums) {
+    bool PredictTheWinner(vector<int> &nums)
+    {
+        int sum = 0;
+        for (auto &num : nums)
+        {
+            sum += num;
+        }
+        int res = my_dp(nums, 0, nums.size() - 1);
+        if (res >= sum - res)
+        {
+            return true;
+        }
+        return false;
+    }
 
+    int my_dp(vector<int> &nums, int l, int r)
+    {
+        if (l == r)
+        {
+            return nums[l];
+        }
+        int former = 0;
+        int latter = 0;
+        if (r - l == 1)
+        {
+            former = nums[l];
+            latter = nums[r];
+        }
+        if (r - l >= 2)
+        {
+            former = nums[l] + min(my_dp(nums, l + 2, r), my_dp(nums, l + 1, r - 1));
+            latter = nums[r] + min(my_dp(nums, l + 1, r - 1), my_dp(nums, l, r - 2));
+        }
+        return max(former, latter);
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
 
-
+/*
 int main()
 {
     Solution s;
-    // vector<int> data{7, 1, 5, 3, 6, 4};
-    
-    cout<<"Hello LeetCode"<<endl;
-}
+    vector<int> data{7, 100, 5, 1};
+    Solution solution = *new Solution();
+    cout << solution.PredictTheWinner(data) << endl;
+}*/
