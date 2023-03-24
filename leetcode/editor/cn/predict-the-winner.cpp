@@ -80,8 +80,9 @@ public:
         }
         if (r - l >= 2)
         {
-            former = nums[l] + min(my_dp(nums, l + 2, r), my_dp(nums, l + 1, r - 1));
-            latter = nums[r] + min(my_dp(nums, l + 1, r - 1), my_dp(nums, l, r - 2));
+            int tmp = my_dp(nums, l + 1, r - 1);
+            former = nums[l] + min(my_dp(nums, l + 2, r), tmp);
+            latter = nums[r] + min(tmp, my_dp(nums, l, r - 2));
         }
         return max(former, latter);
     }
